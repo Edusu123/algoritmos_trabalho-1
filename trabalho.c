@@ -6,11 +6,11 @@
 #define MAX_COLUNAS 1000 // número máximo de colunas da matriz
 
 void inicializacao();
+void defineLinhasColunas(int *linhas, int *colunas);
+void atribuiMatriz(int linhas, int colunas, int (*mat)[MAX_COLUNAS]);
 void menu();
 void cursor(int status);
 void gotoxy(int x, int y); // coluna, linha
-void defineLinhasColunas(int *linhas, int *colunas);
-void atribuiMatriz(int linhas, int colunas, int (*mat)[MAX_COLUNAS]);
 
 void main(){
     int linhas, colunas;
