@@ -7,14 +7,19 @@
 
 void inicializacao();
 void menu();
-void cursor(int);
-void gotoxy(int, int); // coluna, linha
+void cursor(int status);
+void gotoxy(int x, int y); // coluna, linha
 void defineLinhasColunas(int *linhas, int *colunas);
+void atribuiMatriz(int linhas, int colunas, int (*mat)[MAX_COLUNAS]);
 
 void main(){
     int linhas, colunas;
 
     defineLinhasColunas(&linhas, &colunas);
+
+    int matriz[linhas][MAX_COLUNAS];
+
+    atribuiMatriz(linhas, colunas, matriz);
 }
 
 void inicializacao(){
@@ -35,7 +40,29 @@ void defineLinhasColunas(int *linhas, int *colunas){
 
     gotoxy(3, 10); printf("Bem-Vindo!");
     gotoxy(3, 12); printf("Número de Linhas: "); scanf("%d", &*linhas);
-    gotoxy(3, 13); printf("Número de Colunhas: "); scanf("%d", &*colunas);
+    gotoxy(3, 13); printf("Número de Colunas: "); scanf("%d", &*colunas);
+}
+
+void atribuiMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS]){
+    inicializacao();
+
+    gotoxy(3, 10); printf("Defina os valores para cada posição da matriz!");
+
+    int linhaCMD = 12; // define a linha que será exibida a operação
+
+    for(int i = 0; i < linhas; i++){
+        for(int j = 0; j < colunas; j++){
+            
+            int valor;
+            
+            // para o usuário, as posições da matriz começam em 1 e 1
+            gotoxy(3, linhaCMD); printf("Valor [%d][%d]: ", i + 1, j + 1); scanf("%d", &valor);
+            
+            mat[i][j] = valor;
+
+            linhaCMD += 1;
+        }
+    }
 }
 
 void menu(){
