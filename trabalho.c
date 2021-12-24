@@ -3,17 +3,18 @@
 #include<windows.h>
 #include<wincon.h>
 
+#define MAX_COLUNAS 1000 // número máximo de colunas da matriz
+
 void inicializacao();
 void menu();
-
 void cursor(int);
 void gotoxy(int, int); // coluna, linha
+void defineLinhasColunas(int *linhas, int *colunas);
 
 void main(){
-    // exibição da tela inicial e outras configurações
-    inicializacao();
+    int linhas, colunas;
 
-    menu();
+    defineLinhasColunas(&linhas, &colunas);
 }
 
 void inicializacao(){
@@ -29,6 +30,14 @@ void inicializacao(){
     system("mode con:cols=110 lines=30");
 }
 
+void defineLinhasColunas(int *linhas, int *colunas){
+    inicializacao();
+
+    gotoxy(3, 10); printf("Bem-Vindo!");
+    gotoxy(3, 12); printf("Número de Linhas: "); scanf("%d", &*linhas);
+    gotoxy(3, 13); printf("Número de Colunhas: "); scanf("%d", &*colunas);
+}
+
 void menu(){
     int sair = 1;
     int pos = 10;
@@ -37,7 +46,7 @@ void menu(){
         // esconde o cursor
         cursor(0);
 
-        gotoxy(5, 10); printf("Bem-Vindo!");
+        gotoxy(5, 10); printf("Escolha uma das opções!");
 
     }while(sair);
 }
