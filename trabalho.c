@@ -1,3 +1,4 @@
+#include<conio.h>
 #include<locale.h>
 #include<stdio.h>
 #include<windows.h>
@@ -20,6 +21,8 @@ void main(){
     int matriz[linhas][MAX_COLUNAS];
 
     atribuiMatriz(linhas, colunas, matriz);
+
+    menu();
 }
 
 void inicializacao(){
@@ -66,14 +69,53 @@ void atribuiMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS]){
 }
 
 void menu(){
+    inicializacao();
+
     int sair = 1;
     int pos = 10;
+    char input;
     
     do{
         // esconde o cursor
         cursor(0);
 
-        gotoxy(5, 10); printf("Escolha uma das opções!");
+        gotoxy(5, 3); printf("[ESC] Sair");
+        gotoxy(20, 3); printf("[F1] Ajuda");
+
+        gotoxy(5, 5); printf("Escolha uma das opções!");
+        gotoxy(5, 10); printf("Trocas linhas dos elementos");
+        gotoxy(5, 11); printf("Trocas colunas dos elementos");
+        gotoxy(5, 12); printf("Trocas de elementos das diagonais");
+        gotoxy(5, 13); printf("Verificar se é uma matriz simétrica");
+        gotoxy(5, 14); printf("Verificar se é um quadrado mágico");
+        gotoxy(5, 15); printf("Verificar se é um quadrado latino");
+        gotoxy(5, 16); printf("Verificar se é uma matriz de permutação");
+
+        gotoxy(3, pos); printf(">"); // coloca a seta na posição
+
+        input = getch();
+
+        gotoxy(3, pos); printf(" "); // remove a seta da posição
+
+        switch(input){
+            case 72: // seta para cima
+                if(pos == 10){
+                    pos = 16; 
+                    break;
+                }
+                pos -= 1;
+                break;
+            case 80: // seta para baixo
+                if(pos == 16){
+                    pos = 10; 
+                    break;
+                } 
+                pos += 1;
+                break;
+            case 27: // esc
+                system("cls");
+                sair = 0;
+        }
 
     }while(sair);
 }
