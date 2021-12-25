@@ -73,7 +73,7 @@ void menu(){
 
     int sair = 1;
     int pos = 10;
-    char input;
+    unsigned char input;
     
     do{
         // esconde o cursor
@@ -83,9 +83,9 @@ void menu(){
         gotoxy(20, 3); printf("[F1] Ajuda");
 
         gotoxy(5, 5); printf("Escolha uma das opções!");
-        gotoxy(5, 10); printf("Trocas linhas dos elementos");
-        gotoxy(5, 11); printf("Trocas colunas dos elementos");
-        gotoxy(5, 12); printf("Trocas de elementos das diagonais");
+        gotoxy(5, 10); printf("Troca linhas dos elementos");
+        gotoxy(5, 11); printf("Troca colunas dos elementos");
+        gotoxy(5, 12); printf("Troca de elementos das diagonais");
         gotoxy(5, 13); printf("Verificar se é uma matriz simétrica");
         gotoxy(5, 14); printf("Verificar se é um quadrado mágico");
         gotoxy(5, 15); printf("Verificar se é um quadrado latino");
@@ -112,9 +112,13 @@ void menu(){
                 } 
                 pos += 1;
                 break;
+            case ';': // F1
+                gotoxy(60, 16); printf("Escolha uma opção!!");
+                break;
             case 27: // esc
                 system("cls");
                 sair = 0;
+                break;
         }
 
     }while(sair);
