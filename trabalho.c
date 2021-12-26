@@ -9,7 +9,11 @@
 void inicializacao();
 void defineLinhasColunas(int *linhas, int *colunas);
 void atribuiMatriz(int linhas, int colunas, int (*mat)[MAX_COLUNAS]);
-void menu();
+void menu(int linhas, int colunas, int mat[][MAX_COLUNAS]);
+void trocaDeLinhas(int linhas, int colunas, int mat[][MAX_COLUNAS]);
+void trocaDeLinhasMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS], int x, int y);
+void exibeMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS], int linaInicio);
+void igualaMatrizes(int linhas, int colunas, int matAux[][MAX_COLUNAS], int mat[][MAX_COLUNAS]);
 void cursor(int status);
 void gotoxy(int x, int y); // coluna, linha
 
@@ -22,7 +26,7 @@ void main(){
 
     atribuiMatriz(linhas, colunas, matriz);
 
-    menu();
+    menu(linhas, colunas, matriz);
 }
 
 void inicializacao(){
@@ -68,14 +72,14 @@ void atribuiMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS]){
     }
 }
 
-void menu(){
-    inicializacao();
-
+void menu(int linhas, int colunas, int mat[][MAX_COLUNAS]){
     int sair = 1;
     int pos = 10;
     unsigned char input;
     
     do{
+        inicializacao();
+
         // esconde o cursor
         cursor(0);
 
@@ -112,6 +116,12 @@ void menu(){
                 } 
                 pos += 1;
                 break;
+            case 13: // enter
+                if(pos == 10){
+                    trocaDeLinhas(linhas, colunas, mat);
+                    break;
+                }
+                break;
             case ';': // F1
                 gotoxy(60, 16); printf("Escolha uma opção!!");
                 break;
@@ -122,6 +132,68 @@ void menu(){
         }
 
     }while(sair);
+}
+
+void trocaDeLinhas(int linhas, int colunas, int mat[][MAX_COLUNAS]){
+    inicializacao();
+
+    int matAlterada[linhas][MAX_COLUNAS], l1 = 1, l2 = 1;
+
+    igualaMatrizes(linhas, colunas, matAlterada, mat);
+
+    gotoxy(5, 5); printf("Insira o índice das linhas a serem trocadas (1 - n)");
+
+    gotoxy(5, 10); printf("Linha 1: "); scanf("%d", &l1);
+    gotoxy(5, 11); printf("Linha 2: "); scanf("%d", &l2);
+
+    trocaDeLinhasMatriz(linhas, colunas, matAlterada, l1 - 1, l2 - 1);
+
+    inicializacao();
+
+    gotoxy(5, 5); printf("Matriz original: ");
+    exibeMatriz(linhas, colunas, mat, 7);
+
+    gotoxy(5, 20); printf("Matriz alterada: ");
+    exibeMatriz(linhas, colunas, matAlterada, 22);
+
+    gotoxy(5, 29); system("pause");
+}
+
+void trocaDeLinhasMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS], int x, int y){
+    for(int i = 0; i < colunas; i++){
+        int aux = mat[y][i];
+        mat[y][i] = mat[x][i];
+        mat[x][i] = aux;
+    }
+}
+
+void exibeMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS], int linhaInicio){
+    int colunaInicio = 5, contadorLinha = 0, contadorColuna = 0;
+
+    for(int i = 0; i < linhas; i++){
+        int colunaDaVez = colunaInicio + contadorColuna;
+        int linhaDaVez = linhaInicio + contadorLinha;
+        gotoxy(colunaDaVez, linhaDaVez); printf("| ");
+
+        int contadorValores = 0;
+        for(int j = 0; j < colunas; j++){
+            gotoxy(colunaDaVez + contadorValores, linhaDaVez); printf("%d", mat[i][j]);
+            contadorValores += 3;
+        }
+
+        gotoxy(colunaDaVez + contadorValores, linhaDaVez); printf("|\n");
+
+        contadorLinha += 1;
+        // contadorColuna += 1;
+    }
+}
+
+void igualaMatrizes(int linhas, int colunas, int matAux[][MAX_COLUNAS], int mat[][MAX_COLUNAS]){
+    for(int i = 0; i < linhas; i++){
+        for(int j = 0; j < colunas; j++){
+            matAux[i][j] = mat[i][j];
+        }
+    }
 }
 
 void cursor(int status){
