@@ -18,6 +18,12 @@ void cursor(int status);
 void gotoxy(int x, int y); // coluna, linha
 
 void main(){
+    // prompt passa a aceitar codifição de texto com acentos
+    setlocale(LC_ALL, "pt_br");
+    
+    // nome da janela do console
+    SetConsoleTitle("Trabalho 1 - Eduardo Conde Pires");
+
     int linhas, colunas;
 
     defineLinhasColunas(&linhas, &colunas);
@@ -31,12 +37,6 @@ void main(){
 
 void inicializacao(){
     system("cls");
-
-    // prompt passa a aceitar codifição de texto com acentos
-    setlocale(LC_ALL, "pt_br");
-
-    // nome da janela do console
-    SetConsoleTitle("Trabalho 1 - Eduardo Conde Pires");
     
     // define o tamanho da tela
     system("mode con:cols=110 lines=30");
