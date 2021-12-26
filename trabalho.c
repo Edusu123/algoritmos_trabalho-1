@@ -153,8 +153,8 @@ void trocaDeLinhas(int linhas, int colunas, int mat[][MAX_COLUNAS]){
     gotoxy(5, 5); printf("Matriz original: ");
     exibeMatriz(linhas, colunas, mat, 7);
 
-    gotoxy(5, 20); printf("Matriz alterada: ");
-    exibeMatriz(linhas, colunas, matAlterada, 22);
+    gotoxy(5, 16); printf("Matriz alterada: ");
+    exibeMatriz(linhas, colunas, matAlterada, 18);
 
     gotoxy(5, 29); system("pause");
 }
@@ -175,7 +175,7 @@ void exibeMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS], int linhaInici
         int linhaDaVez = linhaInicio + contadorLinha;
         gotoxy(colunaDaVez, linhaDaVez); printf("| ");
 
-        int contadorValores = 0;
+        int contadorValores = 3;
         for(int j = 0; j < colunas; j++){
             gotoxy(colunaDaVez + contadorValores, linhaDaVez); printf("%d", mat[i][j]);
             contadorValores += 3;
@@ -184,7 +184,6 @@ void exibeMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS], int linhaInici
         gotoxy(colunaDaVez + contadorValores, linhaDaVez); printf("|\n");
 
         contadorLinha += 1;
-        // contadorColuna += 1;
     }
 }
 
