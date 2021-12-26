@@ -12,6 +12,8 @@ void atribuiMatriz(int linhas, int colunas, int (*mat)[MAX_COLUNAS]);
 void menu(int linhas, int colunas, int mat[][MAX_COLUNAS]);
 void trocaDeLinhas(int linhas, int colunas, int mat[][MAX_COLUNAS]);
 void trocaDeLinhasMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS], int x, int y);
+void trocaDeColunas(int linhas, int colunas, int mat[][MAX_COLUNAS]);
+void trocaDeColunasMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS], int x, int y);
 void exibeMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS], int linaInicio);
 void igualaMatrizes(int linhas, int colunas, int matAux[][MAX_COLUNAS], int mat[][MAX_COLUNAS]);
 void cursor(int status);
@@ -121,6 +123,10 @@ void menu(int linhas, int colunas, int mat[][MAX_COLUNAS]){
                     trocaDeLinhas(linhas, colunas, mat);
                     break;
                 }
+                if(pos == 11){
+                    trocaDeColunas(linhas, colunas, mat);
+                    break;
+                }
                 break;
             case ';': // F1
                 gotoxy(60, 16); printf("Escolha uma opção!!");
@@ -164,6 +170,39 @@ void trocaDeLinhasMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS], int x,
         int aux = mat[y][i];
         mat[y][i] = mat[x][i];
         mat[x][i] = aux;
+    }
+}
+
+void trocaDeColunas(int linhas, int colunas, int mat[][MAX_COLUNAS]){
+    inicializacao();
+
+    int matAlterada[linhas][MAX_COLUNAS], c1 = 1, c2 = 1;
+
+    igualaMatrizes(linhas, colunas, matAlterada, mat);
+
+    gotoxy(5, 5); printf("Insira o índice das colunas a serem trocadas (1 - n)");
+
+    gotoxy(5, 10); printf("Coluna 1: "); scanf("%d", &c1);
+    gotoxy(5, 11); printf("Coluna 2: "); scanf("%d", &c2);
+
+    trocaDeColunasMatriz(linhas, colunas, matAlterada, c1 - 1, c2 - 1);
+
+    inicializacao();
+
+    gotoxy(5, 5); printf("Matriz original: ");
+    exibeMatriz(linhas, colunas, mat, 7);
+
+    gotoxy(5, 16); printf("Matriz alterada: ");
+    exibeMatriz(linhas, colunas, matAlterada, 18);
+
+    gotoxy(5, 29); system("pause");
+}
+
+void trocaDeColunasMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS], int x, int y){
+    for(int i = 0; i < linhas; i++){
+        int aux = mat[i][x];
+        mat[i][x] = mat[i][y];
+        mat[i][y] = aux;
     }
 }
 
