@@ -30,11 +30,15 @@ void main(){
 
     int linhas, colunas;
 
+    cursor(1);
+    
     defineLinhasColunas(&linhas, &colunas);
 
     int matriz[linhas][MAX_COLUNAS];
 
     atribuiMatriz(linhas, colunas, matriz);
+
+    cursor(0);
 
     menu(linhas, colunas, matriz);
 }
