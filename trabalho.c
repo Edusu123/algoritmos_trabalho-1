@@ -23,6 +23,8 @@ bool verificaSimetricaMatriz(int linhas, int mat[][MAX_COLUNAS]);
 void matrizTransposta(int linhas, int mat[][MAX_COLUNAS], int tr[][MAX_COLUNAS]);
 void verificaQuadradoMagico(int linhas, int colunas, int mat[][MAX_COLUNAS]);
 bool verificaQuadradoMagicoMatriz(int linhas, int mat[][MAX_COLUNAS]);
+void verificaQuadradoLatino(int linhas, int colunas, int mat[][MAX_COLUNAS]);
+bool verificaQuadradoLatinoMatriz(int linhas, int mat[][MAX_COLUNAS]);
 
 void exibeMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS], int linaInicio);
 void igualaMatrizes(int linhas, int colunas, int matAux[][MAX_COLUNAS], int mat[][MAX_COLUNAS]);
@@ -138,6 +140,7 @@ void menu(int linhas, int colunas, int mat[][MAX_COLUNAS]){
                 if(pos == 12) trocaDeDiagonais(linhas, colunas, mat);
                 if(pos == 13) verificaSimetrica(linhas, colunas, mat);
                 if(pos == 14) verificaQuadradoMagico(linhas, colunas, mat);
+                if(pos == 15) verificaQuadradoLatino(linhas, colunas, mat);
                 break;
             case ';': // F1
                 gotoxy(60, 16); printf("Escolha uma opção!!");
@@ -310,6 +313,52 @@ bool verificaQuadradoMagicoMatriz(int linhas, int mat[][MAX_COLUNAS]){
         }
 
         if (linhaSoma != colunaSoma || colunaSoma != somad1) return false;
+    }
+
+    return true;
+}
+
+void verificaQuadradoLatino(int linhas, int colunas, int mat[][MAX_COLUNAS]){
+    inicializacao();
+
+    gotoxy(5, 5);
+    if(verificaQuadradoLatinoMatriz(linhas, mat)) printf("A matriz é um Quadrado Latino!!!");
+    else printf("A matriz não é um quadrado latino...");
+
+    exibeMatriz(linhas, colunas, mat, 10);
+
+    gotoxy(5, 29); system("pause");
+}
+
+bool verificaQuadradoLatinoMatriz(int linhas, int mat[][MAX_COLUNAS]){
+    int i, j, k, vet[linhas];
+
+    for(i = 0; i < linhas; i++){
+        vet[i] = 0;
+        for(j = 0; j < linhas; j++){
+            vet[i] += mat[i][j];
+            for(k = 0; k < linhas; k++){
+                if(mat[i][j] == mat[i][k] && j != k) return false;
+            }
+        }
+    }
+
+    for(i = 0; i < linhas; i++){
+        if(vet[i] != vet[i + 1]) return false;
+    }
+
+    for(j = 0; j < linhas; j++){
+        vet[i] = 0;
+        for(i = 0; i < linhas; i++){
+            vet[j] += mat[i][j];
+            for(k = 0; k < linhas; k++){
+                if (mat[i][j] == mat[k][j] && i != k) return false;
+            }
+        }
+    }
+
+    for(i = 0; i < linhas - 1; i++){
+        if(vet[i] != vet[i + 1]) return false;
     }
 
     return true;
