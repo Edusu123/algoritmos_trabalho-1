@@ -96,6 +96,7 @@ void menu(int linhas, int colunas, int mat[][MAX_COLUNAS]){
     int sair = 1;
     int pos = 10;
     unsigned char input;
+    bool flagAjuda = false;
     
     do{
         inicializacao();
@@ -120,6 +121,11 @@ void menu(int linhas, int colunas, int mat[][MAX_COLUNAS]){
         input = getch();
 
         gotoxy(3, pos); printf(" "); // remove a seta da posição
+
+        if(flagAjuda){
+            gotoxy(60, 16);
+            printf("Escolha uma opção!!");
+        }
 
         switch(input){
             case 72: // seta para cima
@@ -146,7 +152,7 @@ void menu(int linhas, int colunas, int mat[][MAX_COLUNAS]){
                 if(pos == 16) verificaPermutacao(linhas, colunas, mat);
                 break;
             case ';': // F1
-                gotoxy(60, 16); printf("Escolha uma opção!!");
+                flagAjuda = true;
                 break;
             case 27: // esc
                 system("cls");
