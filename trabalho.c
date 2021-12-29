@@ -1,5 +1,6 @@
 #include<conio.h>
 #include<locale.h>
+#include<stdbool.h>
 #include<stdio.h>
 #include<windows.h>
 #include<wincon.h>
@@ -16,6 +17,9 @@ void trocaDeColunas(int linhas, int colunas, int mat[][MAX_COLUNAS]);
 void trocaDeColunasMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS], int x, int y);
 void trocaDeDiagonais(int linhas, int colunas, int mat[][MAX_COLUNAS]);
 void trocaDeDiagonaisMatriz(int linhas, int mat[][MAX_COLUNAS]);
+void verificaSimetrica(int linhas, int colunas, int mat[][MAX_COLUNAS]);
+bool verificaSimetricaMatriz(int linhas, int mat[][MAX_COLUNAS]);
+void matrizTransposta(int linhas, int mat[][MAX_COLUNAS], int tr[][MAX_COLUNAS]);
 void exibeMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS], int linaInicio);
 void igualaMatrizes(int linhas, int colunas, int matAux[][MAX_COLUNAS], int mat[][MAX_COLUNAS]);
 void cursor(int status);
@@ -30,7 +34,7 @@ void main(){
 
     int linhas, colunas;
 
-    cursor(1);
+    cursor(1); // exibe o cursos
     
     defineLinhasColunas(&linhas, &colunas);
 
@@ -38,7 +42,7 @@ void main(){
 
     atribuiMatriz(linhas, colunas, matriz);
 
-    cursor(0);
+    cursor(0); // esconde o cursor
 
     menu(linhas, colunas, matriz);
 }
@@ -128,6 +132,7 @@ void menu(int linhas, int colunas, int mat[][MAX_COLUNAS]){
                 if(pos == 10) trocaDeLinhas(linhas, colunas, mat);
                 if(pos == 11) trocaDeColunas(linhas, colunas, mat);
                 if(pos == 12) trocaDeDiagonais(linhas, colunas, mat);
+                if(pos == 13) verificaSimetrica(linhas, colunas, mat);
                 break;
             case ';': // F1
                 gotoxy(60, 16); printf("Escolha uma opção!!");
@@ -230,6 +235,43 @@ void trocaDeDiagonaisMatriz(int linhas, int mat[][MAX_COLUNAS]){
         int aux = mat[i][i];
         mat[i][i] = mat[i][linhas - i];
         mat[i][linhas - i] = aux;
+    }
+}
+
+void verificaSimetrica(int linhas, int colunas, int mat[][MAX_COLUNAS]){
+    inicializacao();
+
+    if(verificaSimetricaMatriz(linhas, mat)){
+        gotoxy(5, 5); printf("A matriz a seguir é Simétrica!");
+    }
+    else{
+        gotoxy(5, 5); printf("A matriz a seguir não é simétrica...");
+    }
+
+    exibeMatriz(linhas, colunas, mat, 10);
+
+    system("pause");
+}
+
+bool verificaSimetricaMatriz(int linhas, int mat[][MAX_COLUNAS]){
+    int tr[linhas][MAX_COLUNAS];
+
+    matrizTransposta(linhas, mat, tr);
+
+    for(int i = 0; i < linhas; i++){
+        for(int j = 0; j < linhas; j++){
+            if(mat[i][j] != tr[i][j]) return false;
+        }
+    }
+
+    return true;
+}
+
+void matrizTransposta(int linhas, int mat[][MAX_COLUNAS], int tr[][MAX_COLUNAS]){
+    for(int i = 0; i < linhas; i++){
+        for(int j = 0; j < linhas; j++){
+            tr[i][j] = mat[j][i];
+        }
     }
 }
 
