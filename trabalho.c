@@ -25,6 +25,8 @@ void verificaQuadradoMagico(int linhas, int colunas, int mat[][MAX_COLUNAS]);
 bool verificaQuadradoMagicoMatriz(int linhas, int mat[][MAX_COLUNAS]);
 void verificaQuadradoLatino(int linhas, int colunas, int mat[][MAX_COLUNAS]);
 bool verificaQuadradoLatinoMatriz(int linhas, int mat[][MAX_COLUNAS]);
+void verificaPermutacao(int linhas, int colunas, int mat[][MAX_COLUNAS]);
+bool verificaPermutacaoMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS]);
 
 void exibeMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS], int linaInicio);
 void igualaMatrizes(int linhas, int colunas, int matAux[][MAX_COLUNAS], int mat[][MAX_COLUNAS]);
@@ -141,6 +143,7 @@ void menu(int linhas, int colunas, int mat[][MAX_COLUNAS]){
                 if(pos == 13) verificaSimetrica(linhas, colunas, mat);
                 if(pos == 14) verificaQuadradoMagico(linhas, colunas, mat);
                 if(pos == 15) verificaQuadradoLatino(linhas, colunas, mat);
+                if(pos == 16) verificaPermutacao(linhas, colunas, mat);
                 break;
             case ';': // F1
                 gotoxy(60, 16); printf("Escolha uma opção!!");
@@ -362,6 +365,33 @@ bool verificaQuadradoLatinoMatriz(int linhas, int mat[][MAX_COLUNAS]){
     }
 
     return true;
+}
+
+void verificaPermutacao(int linhas, int colunas, int mat[][MAX_COLUNAS]){
+    inicializacao();
+
+    gotoxy(5, 5);
+    if(verificaPermutacaoMatriz(linhas, colunas, mat)) printf("A matriz é uma Matriz de Permutação!!");
+    else printf("A matriz não é uma Matriz de Permutação...");
+
+    exibeMatriz(linhas, colunas, mat, 10);
+
+    gotoxy(5, 29); system("pause");
+}
+
+bool verificaPermutacaoMatriz(int linhas, int colunas, int mat[][MAX_COLUNAS]){
+    bool flagLinha, flagFinal = true;
+
+    for(int i = 0; i < linhas; i++){
+        flagLinha = false;
+        for(int j = 0; j < colunas; j++){
+            if(mat[i][j] != 0 && mat[i][j] != 1) return false;
+            if(mat[i][j] == 1) flagLinha = true;
+        }
+        if(!flagLinha) flagFinal == false;
+    }
+
+    return flagFinal;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
